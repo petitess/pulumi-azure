@@ -1,0 +1,65 @@
+encryptionsalt: v1:UroIFhBdfG0=:v1:4KA93g9PdM/G/hkq:U92DBkkArDx/AJO2H5I4ZJzAXKPkNw==
+
+config:
+  pulumi:autonaming:
+    mode: disabled
+  azure-native:location: swedencentral
+  azure-native:subscriptionId: 123abc
+  param:env: dev
+  param:tags:
+    environment: dev
+    managed-by: pulumi
+
+  param:rgVnetName: rg-pulumi-vnet-dev-01
+  param:vnetName: vnet-dev-01
+  
+  param:dnszones:
+    - privatelink.blob.core.windows.net
+    - privatelink.table.core.windows.net
+    - privatelink.azurewebsites.net
+    - privatelink.vaultcore.azure.net
+
+  param:addressPrefixes: 
+    - 10.100.0.0/16
+    - 10.200.0.0/16
+
+  param:subnets:
+    - snetName: web
+      prefix: 10.100.1.0/24
+      serviceEndpoints: 
+        - Microsoft.Web
+        - Microsoft.Sql
+    - snetName: app
+      prefix: 10.100.2.0/24
+      delegation: Microsoft.Web/serverFarms
+    - snetName: db
+      prefix: 10.100.3.0/24
+      delegation: Microsoft.Databricks/workspaces
+      privateEndpointNetworkPolicies: Disabled
+      privateLinkServiceNetworkPolicies: Disabled
+    - snetName: pep
+      prefix: 10.100.4.0/24
+      privateEndpointNetworkPolicies: Enabled
+      privateLinkServiceNetworkPolicies: Enabled
+  param:storageAccounts:
+    - name: stpulumiabcdev01
+      skuName: Standard_LRS
+      publicNetworkAccess: "Enabled"
+      allowedIPs: 
+        - 1.1.1.1
+        - 2.2.2.2
+      privateEndpoints:
+        blob: 10.100.4.5
+        table: 10.100.4.6
+  param:appServicePlans:
+    - name: asp-pulumi-dev-01
+      kind: "app"
+      skuName: "P0v4"
+      skuTier: "Premium0V4"
+  param:keyVaults:
+    - name: kv-pulumi-dev-01
+      publicNetworkAccess: "Enabled"
+      enabledForDeployment: true
+      privateIP: 10.100.4.9
+      allowedIPs: 
+        - 188.150.118.0/24
