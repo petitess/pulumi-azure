@@ -1,14 +1,18 @@
 ## Commands
-```pwsh
+```sql
 az login
 pulumi login --local
-pulumi new azure-csharp -y
+pulumi new azure-csharp -y -s dev
 pulumi config set azure-native:location swedencentral
-dotnet add package Pulumi.AzureNative
-pulumi stack select dev
-pulumi preview
-pulumi up --yes
+pulumi stack init prod
+pulumi stack select prod
+pulumi stack export
+pulumi refresh --yes
+pulumi preview --diff --neo
+pulumi up --yes --diff --neo
 pulumi state delete <URN>
+pulumi destroy --stack prod
+dotnet add package Pulumi.AzureNative
 ```
 ## Environment variables
 ```pwsh
@@ -18,3 +22,4 @@ $env:AZURE_TENANT_ID       = "22222222-2222-2222-2222-222222222222"  # optional
 $env:AZURE_CLIENT_ID       = "..."   # only if using service principal
 $env:AZURE_CLIENT_SECRET   = "..."   # only if using service principal
 ```
+
