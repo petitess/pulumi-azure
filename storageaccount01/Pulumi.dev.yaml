@@ -4,7 +4,7 @@ config:
   pulumi:autonaming:
     mode: disabled
   azure-native:location: swedencentral
-  azure-native:subscriptionId: 64854628-b6d8-431f-b2a6-13596afbfabb
+  azure-native:subscriptionId: 123abc
   param:env: dev
   param:tags:
     environment: dev
