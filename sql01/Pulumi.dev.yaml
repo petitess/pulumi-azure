@@ -1,0 +1,59 @@
+encryptionsalt: v1:oQbdO2qcP94=:v1:kY5xA+LMVJ9N7Yhm:5uqJHQuCxLZBCPBWxwjD9btd4j1GxQ==
+config:
+  pulumi:autonaming:
+    mode: disabled
+  azure-native:location: swedencentral
+  azure-native:subscriptionId: 123abc
+  param:env: dev
+  param:tags:
+    environment: dev
+    managed-by: pulumi
+
+  param:rgVnetName: rg-pulumi-vnet-dev-01
+  param:vnetName: vnet-dev-01
+  
+  param:dnszones:
+    - privatelink.database.windows.net
+
+  param:addressPrefixes: 
+    - 10.100.0.0/16
+    - 10.200.0.0/16
+
+  param:subnets:
+    - snetName: web
+      prefix: 10.100.1.0/24
+      serviceEndpoints: 
+        - Microsoft.Web
+        - Microsoft.Sql
+    - snetName: app
+      prefix: 10.100.2.0/24
+      delegation: Microsoft.Web/serverFarms
+    - snetName: db
+      prefix: 10.100.3.0/24
+      delegation: Microsoft.Databricks/workspaces
+      privateEndpointNetworkPolicies: Disabled
+      privateLinkServiceNetworkPolicies: Disabled
+    - snetName: pep
+      prefix: 10.100.4.0/24
+      privateEndpointNetworkPolicies: Enabled
+      privateLinkServiceNetworkPolicies: Enabled
+  param:sqlServers:
+    - name: sql-pulumi-dev-01
+      publicNetworkAccess: Enabled
+      restrictOutboundNetworkAccess: Disabled
+      groupName: grp-sql-admin-dev-01
+      groupId: e4138b4b-10ab-455b-ac34-ef7acf7ddb4f
+      privateIP: 10.100.4.5
+      allowedIPs: 
+        188.150.118.0: 188.150.118.255
+        188.120.118.0: 188.120.118.255
+        1.1.1.1: 1.1.1.1
+      databases:
+        - name: db-app
+          skuName: BC_Gen5_2
+          zoneRedundant: false
+          deployJobAgent: true
+        - name: db-log
+          skuName: BC_Gen5_2
+          zoneRedundant: false
+          deployJobAgent: true

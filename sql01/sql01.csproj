@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Pulumi" Version="3.*" />
+    <PackageReference Include="Pulumi.Automation" Version="3.94.1" />
+    <PackageReference Include="Pulumi.AzureNative" Version="3.*" />
+    <PackageReference Include="Pulumi.Command" Version="1.1.3" />
+    <PackageReference Include="Pulumi.Http" Version="0.1.2" />
+    <PackageReference Include="YamlDotNet" Version="16.3.0" />
+  </ItemGroup>
+
+</Project>
