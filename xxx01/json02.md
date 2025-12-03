@@ -1,3 +1,25 @@
+```cs
+var appConfigurations = config.RequireObject<List<AppConfigX>>("appConfigurations");
+```
+```yml
+config:
+  param:appConfigurations:
+    - name: appcs-pulumi-dev-01
+      publicNetworkAccess: Enabled
+      skuName: Standard
+      privateIP: 10.100.4.10
+      featureFlags:
+        - id: CoworkerSearch
+          description: "Switches between new coworker and old coworker view"
+          enabled: false
+          conditions: 
+            client_filters: []
+        - id: ActivityTaskMutations
+          description: "Toggles ActivityTask mutations"
+          enabled: false
+          conditions: 
+            client_filters: []
+```
 ### Example 1
 ```cs
 //dotnet add package Newtonsoft.Json
@@ -14,6 +36,13 @@ Console.WriteLine(net["enabled"]);
 ```cs
 class AppConfigX
 {
+    public string name { get; set; } = "";
+    public string? rgName { get; set; }
+    public string publicNetworkAccess { get; set; } = "Enabled";
+    public string AuthenticationMode { get; set; } = "Pass-through";
+    public string PrivateLinkDelegation { get; set; } = "Enabled";
+    public string skuName { get; set; } = "Standard";
+    public string? privateIP { get; set; }
     public object[] featureFlags { get; set; }
 }
 ```
