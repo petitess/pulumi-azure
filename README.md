@@ -14,6 +14,7 @@ pulumi state delete <URN>
 pulumi destroy --stack prod
 dotnet add package Pulumi.AzureNative
 dotnet add package Pulumi.Command
+dotnet add package YamlDotNet 
 ```
 ## Environment variables
 ```pwsh
