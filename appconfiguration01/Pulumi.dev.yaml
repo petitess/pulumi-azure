@@ -1,0 +1,56 @@
+encryptionsalt: v1:kUsm8NxoohM=:v1:IqWiVKDgnbwXDePl:nBHjqgCXDWDjjuvtLme41050rl2FlQ==
+config:
+  pulumi:autonaming:
+    mode: disabled
+  azure-native:location: swedencentral
+  azure-native:subscriptionId: 123abc
+  param:env: dev
+  param:tags:
+    environment: dev
+    managed-by: pulumi
+
+  param:rgVnetName: rg-pulumi-vnet-dev-01
+  param:vnetName: vnet-dev-01
+  
+  param:dnszones:
+    - privatelink.azconfig.io
+    - privatelink.azure.com
+
+  param:addressPrefixes: 
+    - 10.100.0.0/16
+    - 10.200.0.0/16
+
+  param:subnets:
+    - snetName: web
+      prefix: 10.100.1.0/24
+      serviceEndpoints: 
+        - Microsoft.Web
+        - Microsoft.Sql
+    - snetName: app
+      prefix: 10.100.2.0/24
+      delegation: Microsoft.Web/serverFarms
+    - snetName: db
+      prefix: 10.100.3.0/24
+      delegation: Microsoft.Databricks/workspaces
+      privateEndpointNetworkPolicies: Disabled
+      privateLinkServiceNetworkPolicies: Disabled
+    - snetName: pep
+      prefix: 10.100.4.0/24
+      privateEndpointNetworkPolicies: Enabled
+      privateLinkServiceNetworkPolicies: Enabled
+  param:appConfigurations:
+    - name: appcs-pulumi-dev-01
+      publicNetworkAccess: Enabled
+      skuName: Standard
+      privateIP: 10.100.4.10
+      featureFlags:
+        - id: CoworkerSearch
+          description: "Switches between new coworker and old coworker view"
+          enabled: false
+          conditions: 
+            client_filters: []
+        - id: ActivityTaskMutations
+          description: "Toggles ActivityTask mutations"
+          enabled: false
+          conditions: 
+            client_filters: []
