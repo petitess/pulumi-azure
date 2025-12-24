@@ -78,7 +78,7 @@ class StStack
                         GroupId = p.Key,
                         MemberName = p.Key,
                         PrivateIPAddress = p.Value,
-                        Name = $"config-{p}"
+                        Name = $"config-{p.Key}"
                     },
                     Subnet = new Pulumi.AzureNative.Network.Inputs.SubnetArgs
                     {
@@ -88,7 +88,7 @@ class StStack
                     },
                     PrivateLinkServiceConnections = new Pulumi.AzureNative.Network.Inputs.PrivateLinkServiceConnectionArgs
                     {
-                        Name = $"config-{p}",
+                        Name = $"config-{p.Key}",
                         PrivateLinkServiceId = storageAccount.Id,
                         GroupIds = new InputList<string>
                         {
@@ -156,4 +156,5 @@ class StAccount
     public string[] allowedIPs { get; set; } = [];
     public string publicNetworkAccess { get; set; } = "Enabled";
     public Dictionary<string, string> privateEndpoints { get; set; } = new Dictionary<string, string>();
+
 }
