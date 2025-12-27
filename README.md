@@ -8,6 +8,7 @@ pulumi stack init prod
 pulumi stack select prod
 pulumi stack export
 pulumi refresh --yes
+pulumi refresh --preview-only --neo 
 pulumi preview --diff --neo
 pulumi up --yes --diff --neo
 pulumi state delete <URN>
