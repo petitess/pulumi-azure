@@ -8,6 +8,7 @@ pulumi stack init prod
 pulumi stack select prod
 pulumi stack export
 pulumi refresh --yes
+pulumi refresh --yes --neo --target "urn:pulumi:dev::frontdoor01::azure-native:cdn:AFDOrigin::origin-google2"
 pulumi refresh --preview-only --neo 
 pulumi preview --diff --neo
 pulumi up --yes --diff --neo
