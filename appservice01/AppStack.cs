@@ -314,8 +314,8 @@ class AppStack
             ResourceGroupName = slot.ResourceGroup,
             IpConfigurations = new Pulumi.AzureNative.Network.Inputs.PrivateEndpointIPConfigurationArgs
             {
-                GroupId = "sites-stage",
-                MemberName = "sites-stage",
+                GroupId = $"sites-{slotName}",
+                MemberName = $"sites-{slotName}",
                 PrivateIPAddress = privateIPAddressSlot,
                 Name = $"config"
             },
@@ -331,7 +331,7 @@ class AppStack
                 PrivateLinkServiceId = appService.Id,
                 GroupIds = new InputList<string>
                 {
-                    "sites-stage"
+                    $"sites-{slotName}"
                 }
             }
         });
@@ -361,3 +361,4 @@ class AppStack
         });
     }
 }
+
